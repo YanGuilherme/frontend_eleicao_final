@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="nome">{{ nome }}</div>
+  <img class="foto" [src]="'http://192.168.3.4:8081/candidatos/' + id + '/imagem'" />
+
+  @if (quantidadeVotos > 0) {
+    <div class="votos" [class.animacao]="animar">
+      Votos: {{ quantidadeVotos }} <br />
+      Porcentagem: {{ porcentagem | number: '1.2-2' }}%
+    </div>
+  }
+  @if (quantidadeVotos === 0) {
+    <div class="votos" [class.animacao]="animar">Nenhum voto ainda</div>
+  }
+</div>

@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - '4200:4200'
+    networks:
+      - rede
+
+networks:
+  rede:

@@ -1,0 +1,34 @@
+<div class="container">
+  <a class="back-button" routerLink="/home" title="Voltar"> &#8592; </a>
+  <h1 class="title">Sistema de votação GP2</h1>
+
+  <div class="form-wrapper">
+    <div class="form-panel">
+      <label class="form-label">Insira seu nick</label>
+      <input class="form-input" type="text" [(ngModel)]="loginNick" placeholder="Seu nick" />
+      <label class="form-label">Senha</label>
+      <input class="form-input" type="password" [(ngModel)]="loginSenha" placeholder="Sua senha" />
+      @if (errorLogin) {
+        <span class="error">{{ errorLogin }}</span>
+      }
+      <button class="form-button" (click)="login()">Entrar</button>
+    </div>
+
+    <!-- CRIAÇÃO -->
+    <div class="form-panel">
+      <label class="form-label">Crie seu nick</label>
+      <input class="form-input" type="text" [(ngModel)]="createNick" placeholder="Novo nick" />
+      <label class="form-label">Crie sua senha</label>
+      <input
+        class="form-input"
+        type="password"
+        [(ngModel)]="createSenha"
+        placeholder="Senha forte"
+      />
+      @if (errorCreate) {
+        <span class="error">{{ errorCreate }}</span>
+      }
+      <button class="form-button" (click)="createAccount()">Criar</button>
+    </div>
+  </div>
+</div>

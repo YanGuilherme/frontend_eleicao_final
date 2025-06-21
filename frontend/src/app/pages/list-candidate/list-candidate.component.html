@@ -1,0 +1,41 @@
+<app-users></app-users>
+
+<div class="container">
+  <div class="top-bar">
+    <h2>Bem-vindo</h2>
+    <div class="user-info">
+      <h4>Logado como: {{ returnNick() }}</h4>
+      <button class="button-logout" (click)="logout()">Sair</button>
+    </div>
+  </div>
+  @if (error) {
+    <div class="mensagem-erro">
+      {{ error }}
+    </div>
+  } @else if (hit) {
+    <div class="mensagem-hit">
+      {{ hit }}
+    </div>
+  }
+
+  @if (candidatos.length > 0) {
+    <h3 class="titulo">Candidatos:</h3>
+  } @else {
+    <h3 class="titulo">Carregando candidatos</h3>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <div class="lista-candidatos">
+    @for (candidato of candidatos; track candidato.nome) {
+      <div class="card">
+        <app-candidate
+          [id]="candidato.id"
+          [nome]="candidato.nome"
+          [quantidadeVotos]="candidato.contagem ?? 0"
+          [porcentagem]="candidato.porcentagem ?? 0"
+        />
+        <button class="votar" (click)="votar(candidato)">Votar</button>
+      </div>
+    }
+  </div>
+</div>
