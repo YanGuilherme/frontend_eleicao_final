@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CandidateComponent } from '../../components/candidate/candidate.component';
 import { FormsModule } from '@angular/forms';
-import { apiBase, apiCore, apiProd } from '../../service/api';
+import { apiBase, apiProd } from '../../service/api';
 import SockJS from 'sockjs-client';
 import { Client, Message } from '@stomp/stompjs';
 import { Router } from '@angular/router';
