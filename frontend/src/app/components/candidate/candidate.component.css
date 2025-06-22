@@ -1,22 +1,8 @@
-/* .card {
-  padding: 1rem;
-  margin: 0.5rem;
-  padding-bottom: 0;
-  text-align: center;
-} */
-
 .nome {
   color: black;
   font-size: larger;
   font-weight: bold;
 }
-
-/* .foto {
-  width: 200px;
-  height: 200px;
-  border-radius: 4px;
-  display: block;
-} */
 
 .foto {
   align-self: auto;

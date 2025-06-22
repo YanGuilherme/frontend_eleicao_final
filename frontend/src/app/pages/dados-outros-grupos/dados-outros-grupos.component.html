@@ -1,0 +1,32 @@
+<div class="container">
+  <a class="back-button" routerLink="/home" title="Voltar"> &#8592; </a>
+
+  <h2>Dados de Outros Grupos</h2>
+
+  <div class="status-conexao">
+    Status do WebSocket:
+    <span [class.conectado]="conectado" [class.desconectado]="!conectado">
+      {{ conectado ? 'Conectado' : 'Desconectado' }}
+    </span>
+  </div>
+
+  @if (tiposDisponiveis.length > 0) {
+    <label for="tipo">Escolha um grupo: </label>
+    <select id="tipo" [(ngModel)]="tipoSelecionado" (change)="aoSelecionarTipo(tipoSelecionado)">
+      @for (tipo of tiposDisponiveis; track $index) {
+        <option [value]="tipo">
+          {{ tipo }}
+        </option>
+      }
+    </select>
+  } @else {
+    <br />
+    <span>Carregando grupos</span>
+    <mat-progress-bar class="progress-spinner" mode="indeterminate"></mat-progress-bar>
+  }
+
+  <app-exibicao-resultado
+    [tipoSelecionado]="tipoSelecionado || ''"
+    [listaSelecionada]="listaSelecionada"
+  ></app-exibicao-resultado>
+</div>

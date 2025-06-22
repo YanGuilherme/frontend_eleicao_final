@@ -1,0 +1,51 @@
+.resultado-container {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  background-color: #f9f9f9;
+}
+
+.titulo {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #313e9e;
+}
+
+.tabela-grafico {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.tabela {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 400px;
+}
+
+.tabela th,
+.tabela td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.grafico {
+  width: 350px;
+  height: 350px;
+  min-width: 200px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: red;
+}

@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 import { isTokenValid } from '../../utils/auth.utils';
 import { UsersComponent } from '../../components/users/users.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ExibicaoResultadoComponent } from '../../components/exibicao-resultado/exibicao-resultado.component';
 
 interface Candidato {
   id: string;
@@ -19,12 +20,20 @@ interface Candidato {
   somatorio?: number;
   contagem?: number;
   porcentagem?: number;
+  objectIdentifier?: string;
 }
 
 @Component({
   selector: 'app-list-candidate',
   standalone: true,
-  imports: [CommonModule, CandidateComponent, FormsModule, UsersComponent, MatProgressBarModule],
+  imports: [
+    CommonModule,
+    CandidateComponent,
+    FormsModule,
+    UsersComponent,
+    MatProgressBarModule,
+    ExibicaoResultadoComponent,
+  ],
   templateUrl: './list-candidate.component.html',
   styleUrls: ['./list-candidate.component.css'],
 })
@@ -39,6 +48,7 @@ export class ListCandidateComponent implements OnInit, OnDestroy {
 
   mostrarModal = false;
   isSubmitting = false;
+  tipoSelecionado: string = 'eleicao-gp2';
 
   constructor(private router: Router) {
     this.stompClient = new Client({
@@ -133,13 +143,19 @@ export class ListCandidateComponent implements OnInit, OnDestroy {
   }
 
   async carregarCandidatos(): Promise<Candidato[]> {
-    const response = await apiBase.get('/candidatos');
+    if (this.logout_no_token()) return [];
+
+    const token = localStorage.getItem('token');
+    const response = await apiBase.get('/candidatos', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return Array.isArray(response.data) ? response.data : [];
   }
 
   async carregarDadosAgregados(): Promise<any[]> {
     const response = await apiProd.get('/api/aggregator/results');
-    console.log(response.data.dadosAgregados);
     return response.data.dadosAgregados;
   }
 
@@ -158,6 +174,7 @@ export class ListCandidateComponent implements OnInit, OnDestroy {
       const candidato = candidatos.find((c) => String(c.id) === String(dado.objectIdentifier));
       if (candidato) {
         Object.assign(candidato, {
+          objectIdentifier: candidato.nome,
           media: dado.media,
           mediana: dado.mediana,
           somatorio: dado.somatorio,
