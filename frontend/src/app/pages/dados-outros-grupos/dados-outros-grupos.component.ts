@@ -26,6 +26,8 @@ export class DadosOutrosGruposComponent implements OnInit, OnDestroy {
   tiposDisponiveis: string[] = [];
   tipoSelecionado: string | null = null;
   listaSelecionada: any[] = [];
+  totalLotesProcessadosGlobal: string | null = null;
+  totalItensDeDadosProcessadosGlobal: string | null = null;
 
   conectado: boolean = false;
   private socket: WebSocket | null = null;
@@ -42,6 +44,8 @@ export class DadosOutrosGruposComponent implements OnInit, OnDestroy {
   async carregarDadosViaHttp(): Promise<void> {
     try {
       const json = await this.buscarDados();
+      this.totalItensDeDadosProcessadosGlobal = json.totalItensDeDadosProcessadosGlobal;
+      this.totalLotesProcessadosGlobal = json.totalLotesProcessadosGlobal;
       this.dadosAgregados = json.dadosAgregados.filter((d: any) => d.type !== 'eleicao-gp2');
       this.tiposDisponiveis = this.dadosAgregados.map((d: any) => d.type);
     } catch (error) {

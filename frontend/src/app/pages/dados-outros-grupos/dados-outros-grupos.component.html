@@ -9,6 +9,12 @@
     </span>
   </div>
 
+  <div>
+    Resumo Global de Processamento do Core
+    <p>Total de lotes processados: {{ totalLotesProcessadosGlobal }}</p>
+    <p>Total de itens processados: {{ totalItensDeDadosProcessadosGlobal }}</p>
+  </div>
+
   @if (tiposDisponiveis.length > 0) {
     <label for="tipo">Escolha um grupo: </label>
     <select id="tipo" [(ngModel)]="tipoSelecionado" (change)="aoSelecionarTipo(tipoSelecionado)">
