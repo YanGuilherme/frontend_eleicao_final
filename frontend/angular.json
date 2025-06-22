@@ -13,11 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": [
-              "sockjs-client",
-              "@stomp/stompjs",
-              "buffer"
-            ],
+            "allowedCommonJsDependencies": ["sockjs-client", "@stomp/stompjs", "buffer"],
             "outputPath": "dist/sistema-votacao",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -27,6 +23,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "static.json",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": ["src/styles.css"],

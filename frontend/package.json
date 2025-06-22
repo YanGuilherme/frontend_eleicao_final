@@ -7,7 +7,7 @@
     "local": "ng serve --host 192.168.3.4",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build": "ng build --configuration production && cp static.json dist/sistema-votacao/browser"
+    "build": "ng build --configuration production"
   },
   "private": true,
   "dependencies": {
