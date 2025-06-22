@@ -234,4 +234,8 @@ export class ListCandidateComponent implements OnInit, OnDestroy {
     alert('Faça o login novamente');
     return;
   }
+
+  levarParaTelaInicial() {
+    this.router.navigate(['/home']);
+  }
 }

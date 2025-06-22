@@ -27,9 +27,11 @@ select {
 }
 
 .container {
-  padding: 1rem;
+  padding: 2rem;
   max-width: 900px;
-  margin: auto;
+  margin: 10px auto;
+  text-align: center;
+  top: 10px;
 }
 
 .progress-spinner {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { isTokenValid } from '../../utils/auth.utils';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -9,4 +10,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  constructor(private router: Router) {}
+
+  hasValidToken(): string {
+    const token = localStorage.getItem('token');
+    if (!token || !isTokenValid(token)) {
+      return '/login';
+    } else {
+      return '/list-candidate';
+    }
+  }
+}

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { apiBase } from '../../service/api';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, MatProgressSpinnerModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -20,6 +21,8 @@ export class LoginComponent {
   errorLogin: string = '';
   errorCreate: string = '';
 
+  carregando: boolean = false;
+
   constructor(private router: Router) {
     this.errorLogin = '';
     this.errorCreate = '';
@@ -27,6 +30,7 @@ export class LoginComponent {
 
   async login(): Promise<void> {
     if (this.loginNick && this.loginSenha) {
+      this.carregando = true;
       try {
         const response = await apiBase.post('/user/token', {
           nick: this.loginNick,
@@ -37,6 +41,8 @@ export class LoginComponent {
       } catch (error: any) {
         this.errorLogin = error?.response?.data || 'Erro ao fazer login.';
         this.errorCreate = '';
+      } finally {
+        this.carregando = false;
       }
     } else {
       this.errorLogin = 'Por favor, insira o nick e a senha para entrar.';
@@ -60,6 +66,8 @@ export class LoginComponent {
         return;
       }
 
+      this.carregando = true;
+
       try {
         const response = await apiBase.post('/user', {
           nick: this.createNick,
@@ -70,6 +78,8 @@ export class LoginComponent {
       } catch (error: any) {
         this.errorCreate = error?.response?.data || 'Erro ao criar conta.';
         this.errorLogin = '';
+      } finally {
+        this.carregando = false;
       }
     } else {
       this.errorCreate = 'Por favor, preencha o nick e a senha.';

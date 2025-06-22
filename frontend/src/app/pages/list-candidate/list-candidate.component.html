@@ -5,7 +5,11 @@
     <h2>Bem-vindo</h2>
     <div class="user-info">
       <h4>Logado como: {{ returnNick() }}</h4>
-      <button class="button-logout" (click)="logout()">Sair</button>
+      <a class="button-logout" (click)="levarParaTelaInicial()" title="Voltar">
+        Voltar para a tela inicial
+      </a>
+      <br />
+      <a class="button-logout" (click)="logout()">Sair</a>
     </div>
   </div>
   @if (error) {

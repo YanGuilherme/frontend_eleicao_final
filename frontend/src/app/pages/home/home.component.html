@@ -4,7 +4,7 @@
   <div class="cards-wrapper">
     <div class="access-card">
       <div class="card-title">Sistema de Votação GP2</div>
-      <a class="access-button" routerLink="/login">Acessar</a>
+      <a class="access-button" [routerLink]="hasValidToken()">Acessar</a>
     </div>
 
     <div class="access-card">

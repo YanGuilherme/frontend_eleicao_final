@@ -3,30 +3,32 @@
     <h2 class="titulo">Resultados de "{{ tipoSelecionado }}"</h2>
 
     <div class="tabela-grafico">
-      <table class="tabela">
-        <thead>
-          <tr>
-            <th>Objeto</th>
-            <th>Contagem</th>
-            <th>Porcentagem</th>
-            <th>Media</th>
-            <th>Mediana</th>
-            <th>Somatório</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of listaSelecionada; track $index) {
+      <div class="tabela-scroll">
+        <table class="tabela">
+          <thead>
             <tr>
-              <td>{{ item.objectIdentifier }}</td>
-              <td>{{ item.contagem }}</td>
-              <td>{{ item.porcentagem | number: '1.1-2' }}%</td>
-              <td>{{ item.media }}</td>
-              <td>{{ item.mediana }}</td>
-              <td>{{ item.somatorio }}</td>
+              <th>Objeto</th>
+              <th>Contagem</th>
+              <th>Porcentagem</th>
+              <th>Media</th>
+              <th>Mediana</th>
+              <th>Somatório</th>
             </tr>
-          }
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @for (item of listaSelecionada; track $index) {
+              <tr>
+                <td>{{ item.objectIdentifier }}</td>
+                <td>{{ item.contagem }}</td>
+                <td>{{ item.porcentagem | number: '1.1-2' }}%</td>
+                <td>{{ item.media }}</td>
+                <td>{{ item.mediana }}</td>
+                <td>{{ item.somatorio }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
 
       <div class="grafico">
         <canvas

@@ -3,34 +3,46 @@
   <h1 class="title">Sistema de votação GP2</h1>
 
   <div class="form-wrapper">
-    <div class="form-panel">
-      <h3>Já possuo conta</h3>
-      <label class="form-label">Insira seu nick</label>
-      <input class="form-input" type="text" [(ngModel)]="loginNick" placeholder="Seu nick" />
-      <label class="form-label">Senha</label>
-      <input class="form-input" type="password" [(ngModel)]="loginSenha" placeholder="Sua senha" />
-      @if (errorLogin) {
-        <span class="error">{{ errorLogin }}</span>
-      }
-      <button class="form-button" (click)="login()">Entrar</button>
-    </div>
+    @if (carregando) {
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    } @else {
+      <div class="form-panel">
+        <h3>Já possuo conta</h3>
+        <label class="form-label">Insira seu nick</label>
+        <input class="form-input" type="text" [(ngModel)]="loginNick" placeholder="Seu nick" />
+        <label class="form-label">Senha</label>
+        <input
+          class="form-input"
+          type="password"
+          [(ngModel)]="loginSenha"
+          placeholder="Sua senha"
+        />
+        @if (errorLogin) {
+          <span class="error">{{ errorLogin }}</span>
+        }
+        <button class="form-button" (click)="login()">Entrar</button>
+      </div>
 
-    <!-- CRIAÇÃO -->
-    <div class="form-panel">
-      <h3>Criar conta</h3>
-      <label class="form-label">Crie seu nick</label>
-      <input class="form-input" type="text" [(ngModel)]="createNick" placeholder="Novo nick" />
-      <label class="form-label">Crie sua senha</label>
-      <input
-        class="form-input"
-        type="password"
-        [(ngModel)]="createSenha"
-        placeholder="Senha forte"
-      />
-      @if (errorCreate) {
-        <span class="error">{{ errorCreate }}</span>
-      }
-      <button class="form-button" (click)="createAccount()">Criar</button>
-    </div>
+      <div class="form-panel">
+        <h3>Criar conta</h3>
+        <label class="form-label">Crie seu nick</label>
+        <input class="form-input" type="text" [(ngModel)]="createNick" placeholder="Novo nick" />
+        <label class="form-label">Crie sua senha</label>
+        <input
+          class="form-input"
+          type="password"
+          [(ngModel)]="createSenha"
+          placeholder="Senha forte"
+        />
+        @if (errorCreate) {
+          <span class="error">{{ errorCreate }}</span>
+        }
+        <button class="form-button" (click)="createAccount()">Criar</button>
+      </div>
+    }
   </div>
+
+  <!-- CRIAÇÃO -->
 </div>

@@ -29,6 +29,18 @@
   max-width: 400px;
 }
 
+.tabela-scroll {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 656px;
+}
+
+.tabela-scroll table {
+  min-width: 600px; /* ou mais, dependendo da quantidade de colunas */
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .tabela th,
 .tabela td {
   border: 1px solid #ccc;
