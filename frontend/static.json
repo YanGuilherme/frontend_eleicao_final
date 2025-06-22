@@ -1,6 +1,0 @@
-{
-  "root": "dist/sistema-votacao/browser",
-  "routes": {
-    "/**": "index.html"
-  }
-}
