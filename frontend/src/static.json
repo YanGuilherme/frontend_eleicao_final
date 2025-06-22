@@ -1,8 +1,7 @@
 {
-  "routes": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "root": ".",
+  "clean_urls": true,
+  "routes": {
+    "/**": "index.html"
+  }
 }
