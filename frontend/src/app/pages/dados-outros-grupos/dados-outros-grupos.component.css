@@ -31,7 +31,6 @@ select {
   max-width: 900px;
   margin: 10px auto;
   text-align: center;
-  top: 10px;
 }
 
 .progress-spinner {
@@ -49,4 +48,13 @@ select {
 
 .desconectado {
   color: red;
+}
+
+@media (max-width: 768px) {
+  .back-button {
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 1.2rem;
+  }
 }
