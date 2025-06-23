@@ -1,22 +1,21 @@
+<div class="status-conexao">
+  Status do WebSocket:
+  <span [class.conectado]="conectado" [class.desconectado]="!conectado">
+    {{ conectado ? 'Conectado' : 'Desconectado' }}
+  </span>
+</div>
 <div class="container">
   <a class="back-button" routerLink="/home" title="Voltar"> &#8592; </a>
   <h2>Dados de Outros Grupos</h2>
 
-  <div class="status-conexao">
-    Status do WebSocket:
-    <span [class.conectado]="conectado" [class.desconectado]="!conectado">
-      {{ conectado ? 'Conectado' : 'Desconectado' }}
-    </span>
-  </div>
-
-  <div>
-    Resumo Global de Processamento do Core
+  <div class="resumo">
+    <h4>Resumo Global de Processamento do Core</h4>
     <p>Total de lotes processados: {{ totalLotesProcessadosGlobal }}</p>
     <p>Total de itens processados: {{ totalItensDeDadosProcessadosGlobal }}</p>
   </div>
 
   @if (tiposDisponiveis.length > 0) {
-    <label for="tipo">Escolha um grupo: </label>
+    <label for="tipo"><strong>Escolha um grupo: </strong></label>
     <select id="tipo" [(ngModel)]="tipoSelecionado" (change)="aoSelecionarTipo(tipoSelecionado)">
       @for (tipo of tiposDisponiveis; track $index) {
         <option [value]="tipo">
