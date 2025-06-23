@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import SockJS from 'sockjs-client';
+import { Client, Message } from '@stomp/stompjs';
 
 @Component({
   selector: 'app-dados-outros-grupos',
@@ -28,17 +29,26 @@ export class DadosOutrosGruposComponent implements OnInit, OnDestroy {
   listaSelecionada: any[] = [];
   totalLotesProcessadosGlobal: string | null = null;
   totalItensDeDadosProcessadosGlobal: string | null = null;
+  stompClient: Client;
 
   conectado: boolean = false;
-  private socket: WebSocket | null = null;
 
-  async ngOnInit() {
-    await this.carregarDadosViaHttp();
+  constructor() {
+    this.stompClient = new Client({
+      webSocketFactory: () => new SockJS('https://agregador-node.onrender.com/ws'),
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
+  }
+
+  ngOnInit(): void {
     this.conectarWebSocket();
+    this.carregarDadosViaHttp();
   }
 
   ngOnDestroy(): void {
-    this.socket?.close();
+    this.desconectarWebSocket();
   }
 
   async carregarDadosViaHttp(): Promise<void> {
@@ -69,37 +79,43 @@ export class DadosOutrosGruposComponent implements OnInit, OnDestroy {
   }
 
   conectarWebSocket(): void {
-    this.socket = new SockJS('https://agregador-node.onrender.com/ws');
+    this.stompClient.onConnect = () => {
+      this.stompClient.subscribe('/topic/aggregated', (message: Message) => {
+        try {
+          const json = JSON.parse(message.body);
+          this.dadosAgregados = json.dadosAgregados.filter((d: any) => d.type !== 'eleicao-gp2');
+          this.tiposDisponiveis = this.dadosAgregados.map((d: any) => d.type);
 
-    this.socket.onopen = () => {
-      this.conectado = true;
-      console.log('Conectado ao WebSocket');
-    };
-
-    this.socket.onclose = () => {
-      this.conectado = false;
-      console.warn('WebSocket desconectado');
-    };
-
-    this.socket.onerror = (err) => {
-      console.error('Erro no WebSocket:', err);
-      this.conectado = false;
-    };
-
-    this.socket.onmessage = (event) => {
-      try {
-        const json = JSON.parse(event.data);
-        this.dadosAgregados = json.dadosAgregados.filter((d: any) => d.type !== 'eleicao-gp2');
-        this.tiposDisponiveis = this.dadosAgregados.map((d: any) => d.type);
-
-        if (this.tipoSelecionado) {
-          const dados =
-            this.dadosAgregados.find((d) => d.type === this.tipoSelecionado)?.lista || [];
-          this.listaSelecionada = dados;
+          if (this.tipoSelecionado) {
+            const dados =
+              this.dadosAgregados.find((d) => d.type === this.tipoSelecionado)?.lista || [];
+            this.listaSelecionada = dados;
+          }
+        } catch (err) {
+          console.error('Erro ao processar dados do WebSocket:', err);
+        } finally {
+          this.conectado = true;
         }
-      } catch (err) {
-        console.error('Erro ao processar dados do WebSocket:', err);
-      }
+      });
     };
+
+    this.stompClient.onStompError = (frame) => {
+      this.conectado = false;
+    };
+
+    this.stompClient.onWebSocketError = (event) => {
+      this.conectado = false;
+    };
+
+    this.stompClient.onDisconnect = () => {
+      this.conectado = false;
+    };
+
+    this.stompClient.activate();
+  }
+  desconectarWebSocket(): void {
+    if (this.stompClient && this.stompClient.connected) {
+      this.stompClient.deactivate();
+    }
   }
 }
