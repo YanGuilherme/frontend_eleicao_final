@@ -167,7 +167,7 @@ export class ListCandidateComponent implements OnInit, OnDestroy {
     const dadosFiltrados = dadosAgregados.find((dado) => dado.type === tipo);
 
     if (!dadosFiltrados || !Array.isArray(dadosFiltrados.lista)) {
-      return candidatos; // Nenhum dado para processar
+      return candidatos;
     }
 
     for (const dado of dadosFiltrados.lista) {

@@ -16,7 +16,7 @@
 
 .tabela-grafico {
   display: flex;
-  gap: 10rem;
+  gap: 3rem;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -37,7 +37,7 @@
 }
 
 .tabela-scroll table {
-  min-width: 600px; /* ou mais, dependendo da quantidade de colunas */
+  min-width: 600px;
   width: 100%;
   border-collapse: collapse;
 }

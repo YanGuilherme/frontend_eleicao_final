@@ -83,6 +83,8 @@ export class DadosOutrosGruposComponent implements OnInit, OnDestroy {
       this.stompClient.subscribe('/topic/aggregated', (message: Message) => {
         try {
           const json = JSON.parse(message.body);
+          this.totalItensDeDadosProcessadosGlobal = json.totalItensDeDadosProcessadosGlobal;
+          this.totalLotesProcessadosGlobal = json.totalLotesProcessadosGlobal;
           this.dadosAgregados = json.dadosAgregados.filter((d: any) => d.type !== 'eleicao-gp2');
           this.tiposDisponiveis = this.dadosAgregados.map((d: any) => d.type);
 

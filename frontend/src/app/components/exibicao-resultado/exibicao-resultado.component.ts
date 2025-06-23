@@ -17,11 +17,15 @@ export class ExibicaoResultadoComponent implements OnChanges {
   chartData: number[] = [];
 
   ngOnChanges(): void {
+    this.ordenarDados();
+  }
+
+  ordenarDados(): void {
     if (this.listaSelecionada?.length > 0) {
       const listaOrdenada = [...this.listaSelecionada].sort((a, b) => b.contagem - a.contagem);
 
       this.chartLabels = listaOrdenada.map((item) => item.objectIdentifier);
-      this.chartData = listaOrdenada.map((item) => item.porcentagem);
+      this.chartData = listaOrdenada.map((item) => item.contagem);
 
       this.listaSelecionada = listaOrdenada;
     }
